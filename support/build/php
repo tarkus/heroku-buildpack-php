@@ -27,6 +27,8 @@ echo "-----> Building PHP ${dep_version}..."
 
 curl -L ${dep_url} | tar xz
 
+echo "-----> PHP source code fetched"
+
 pushd ${dep_dirname}
 
 if echo -n $dep_version | python -c "import sys, pkg_resources; ver=pkg_resources.parse_version(sys.stdin.read()); sys.exit(ver >= pkg_resources.parse_version('5.6.0RC2') || ver >= pkg_resources.parse_version('5.5.17RC1'));"; then
@@ -75,6 +77,7 @@ LD_LIBRARY_PATH=${OUT_PREFIX} ./configure \
     --with-pdo-sqlite=shared \
     --with-xmlrpc=shared \
     --with-xsl=shared
+echo "-----> Compiling PHP ${dep_version}"
 make -s -j 9
 make install -s
 popd
